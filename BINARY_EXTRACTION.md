@@ -1,7 +1,5 @@
 # Binary Feature Extraction — Decision Logic
 
-> Αυτό το README εξηγεί αποκλειστικά **πώς εξάγεται κάθε binary feature** από το NLP pipeline. Κάθε διάγραμμα δείχνει τα βήματα απόφασης (negation guards → numeric thresholds → text patterns → default fallback).
-
 **Σύμβολα:**
 - 🔵 **NEG** — Negation guard: αν ισχύει, επιστρέφει αμέσως `0`
 - 🟢 **NUM** — Numeric threshold: συγκρίνει αριθμητική τιμή με κλινικό threshold
