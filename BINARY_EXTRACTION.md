@@ -325,17 +325,17 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A([Normalized AV text]) --> B{🔵 NEG\n'Μικρή/ήπια ανεπάρκεια'\nοποιαδήποτε σειρά λέξεων\nχωρίς 'μικρού→μετρίου';}
-    B -->|Ναι| Z0([Label = 0])
-    B -->|Όχι| C{🟢 NUM\nAR PHT ≤ 500 ms;\n_(αντίστροφο threshold)_}
-    C -->|Ναι| Z1([Label = 1])
-    C -->|Όχι| D{🟢 NUM\nAR ERO ≥ 0.10 cm²;}
-    D -->|Ναι| Z1b([Label = 1])
-    D -->|Όχι| E{🟢 NUM\nAR RVol ≥ 30 mL;}
-    E -->|Ναι| Z1c([Label = 1])
-    E -->|Όχι| F{🟡 TXT\n'Μέτρια/σοβαρή ανεπάρκεια/\nδιαφυγή' — κανονική +\nαντεστραμμένη σειρά;}
+    A([Normalized AV text]) --> B{NEG: Mild regurgitation any word order\nwithout mild-to-moderate?}
+    B -->|Yes| Z0([Label = 0])
+    B -->|No| C{NUM: AR PHT <= 500 ms inverse threshold}
+    C -->|Yes| Z1([Label = 1])
+    C -->|No| D{NUM: AR ERO >= 0.10 cm2}
+    D -->|Yes| Z1b([Label = 1])
+    D -->|No| E{NUM: AR RVol >= 30 mL}
+    E -->|Yes| Z1c([Label = 1])
+    E -->|No| F{TXT: Moderate or severe regurgitation\nforward and reversed word order}
     F -->|Match| Z1d([Label = 1])
-    F -->|Όχι| Z0b([Label = 0])
+    F -->|No| Z0b([Label = 0])
 
     style Z0 fill:#FAECE7,stroke:#993C1D,color:#712B13
     style Z0b fill:#FAECE7,stroke:#993C1D,color:#712B13
@@ -348,7 +348,6 @@ flowchart TD
     style D fill:#E1F5EE,stroke:#0F6E56,color:#085041
     style E fill:#E1F5EE,stroke:#0F6E56,color:#085041
     style F fill:#FAEEDA,stroke:#854F0B,color:#633806
-```
 
 ---
 
@@ -441,16 +440,16 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A([Normalized IVC text]) --> B{🔵 NEG\n'Φυσιολογικές διαστάσεις'\nχωρίς 'διατεταμένη /\nαυξημένες';}
-    B -->|Ναι| Z0([Label = 0])
-    B -->|Όχι| C{🟢 NUM\nmm/cm\nαλλά ΟΧΙ mmHg\n_'(?!hg)' lookahead_;}
-    C -->|Βρέθηκε > 21 mm| Z1([Label = 1])
-    C -->|Βρέθηκε ≤ 21 mm| Z0b([Label = 0])
-    C -->|Δεν βρέθηκε| D{🟡 TXT\n'Διατεταμένη'\nοποιαδήποτε σύνταξη;}
+    A([Normalized IVC text]) --> B{NEG: Normal dimensions\nwithout dilated or increased?}
+    B -->|Yes| Z0([Label = 0])
+    B -->|No| C{NUM: mm or cm but NOT mmHg\nusing lookahead to exclude hg}
+    C -->|Found > 21 mm| Z1([Label = 1])
+    C -->|Found <= 21 mm| Z0b([Label = 0])
+    C -->|Not found| D{TXT: Dilated - any syntax}
     D -->|Match| Z1b([Label = 1])
-    D -->|Όχι| E{🟡 TXT\n'Αυξημένες διαστάσεις';}
+    D -->|No| E{TXT: Increased dimensions}
     E -->|Match| Z1c([Label = 1])
-    E -->|Όχι| Z0c([Label = 0])
+    E -->|No| Z0c([Label = 0])
 
     style Z0 fill:#FAECE7,stroke:#993C1D,color:#712B13
     style Z0b fill:#FAECE7,stroke:#993C1D,color:#712B13
@@ -462,7 +461,6 @@ flowchart TD
     style C fill:#E1F5EE,stroke:#0F6E56,color:#085041
     style D fill:#FAEEDA,stroke:#854F0B,color:#633806
     style E fill:#FAEEDA,stroke:#854F0B,color:#633806
-```
 
 ---
 
